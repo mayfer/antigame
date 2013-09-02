@@ -26,7 +26,7 @@ var Maple = require('../Maple');
 var TestServer = Maple.Class(function(clientClass) {
 
     Maple.Server(this, clientClass, [
-        'echo'
+        'user_input', 'broadcast_inputs'
     ]);
 
 }, Maple.Server, {
@@ -36,9 +36,6 @@ var TestServer = Maple.Class(function(clientClass) {
     },
 
     update: function(t, tick) {
-        //if (tick % 50 === 0) {
-            this.broadcast('echo', ['Server', tick, this.getRandom()]);
-        //}
     },
 
     stopped: function() {
@@ -50,7 +47,8 @@ var TestServer = Maple.Class(function(clientClass) {
     },
 
     message: function(client, type, tick, data) {
-        this.log('New Message received:', client, type, tick, data);
+        //this.log('New Message received:', client, type, tick, data);
+        this.log('New Message received:', type, tick, data);
     },
 
     requested: function(req, res) {

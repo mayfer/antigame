@@ -27,7 +27,7 @@ var Test = Class(function() {
             }
         }
         if(keys_list.length > 0) {
-            this.send(1, keys_list);
+            this.send('user_input', keys_list);
         }
     },
 
