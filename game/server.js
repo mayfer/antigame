@@ -21,6 +21,7 @@
   */
 var Maple = require('../Maple');
 
+var all_user_inputs = [];
 
 // Test -----------------------------------------------------------------------
 var TestServer = Maple.Class(function(clientClass) {
@@ -36,6 +37,11 @@ var TestServer = Maple.Class(function(clientClass) {
     },
 
     update: function(t, tick) {
+        if(all_user_inputs.length > 0) {
+            this.log(all_user_inputs);
+            this.broadcast('broadcast_inputs', all_user_inputs);
+            all_user_inputs.length = 0;
+        }
     },
 
     stopped: function() {
@@ -49,6 +55,13 @@ var TestServer = Maple.Class(function(clientClass) {
     message: function(client, type, tick, data) {
         //this.log('New Message received:', client, type, tick, data);
         this.log('New Message received:', type, tick, data);
+        if(type == 'user_input') {
+            user_input = {
+                'client': client.clientId,
+                'keys': data,
+            };
+            all_user_inputs.push(user_input);
+        }
     },
 
     requested: function(req, res) {

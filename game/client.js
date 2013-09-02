@@ -44,7 +44,9 @@ var Test = Class(function() {
     },
 
     message: function(type, tick, data) {
-        //this.log('Message received:', type, data);
+        if(type == 'broadcast_inputs') {
+            this.log('Message received:', type, data);
+        }
     },
 
     syncedMessage: function(type, tick, data) {
